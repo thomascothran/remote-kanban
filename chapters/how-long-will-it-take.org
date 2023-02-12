@@ -1,0 +1,118 @@
+#+TITLE: How Long Will It Take: Initiative Planning
+
+You are considering launching a project, and you need to know how many resources to devote to it and how long will it take.
+
+There are two main problems:
+
+1. The cone of uncertainty: the earlier in a project, the greater the uncertainty
+2. The unreliability of intuition: people tend to drastically underestimate how long things take to complete
+
+** Cone of uncertainty
+
+The cone of uncertainty is best visualized in a image:
+
+image of cone of uncertainty
+
+There are many sources of uncertainty:
+
+- How large a project is
+- How long it will take
+- Who will be available to work on it
+- What other projects will be competing for resources and priority
+- What unexpected challenges will arise (outages, etc)
+- What exactly will be implemented
+
+The problem with planning is that business decisions are made at the exact point in the process at which uncertainty is the greatest.
+
+There are several ways to mitigate this problem:
+
+First, defer commitment as long as possible. The earlier a commitment is made, the more likely it will be wrong. Commitments are necessary, but they should be made when necessary -- and not before.
+
+Second, continually re-forecast as a project moves forward. The later forecasts will tend to be more accurate and actionable.
+
+Third, adjust scope or deadlines dynamically. Many projects are shipped not because they have all initially planned features, but because the business has drawn the line. Further delay is unacceptable. Again, many projects ship late because features were added. Continual re-forecasting allows these factors to be controlled. If a deadline cannot be missed, scope can be cut. If features cannot be removed, deadlines can be moved out. Forecasting allows these decisions to be made earlier and intentionally.
+
+Fourth, quantify uncertainty. You can have a determinate date, but it is almost certainly wrong. Or you can have a date range levels of confidence attached. The rest of this article will cover how to forecast a date range and quantify the certainty level.
+
+** The problem with estimation
+
+The default mode of project planning runs something like this. Business commits to a project. A project owner comes up with a set of requirements, which take the form of stories in Jira (or equivalent tool). Engineering is asked for an approximate date when the project can be completed. Engineers look at each story, come up with a time for each, sum them up, and then multiply to provide a buffer.
+
+The trouble is that intuition is terribly inaccurate, not only in the sphere of software, but for planning any project. This is well established in the social psychology literature.
+
+Buehler & Griffin (2018) recounts an experiment where students were asked to estimate when they would complete a thesis. The students gave confidence intervals for dates which they were 50%, 75%, and 99% certain they would complete their thesis. Most students failed to complete their theses before the date they were 99% certain in!
+
+Predicting the completion of a thesis is much simpler than a software project. In contrast with the thesis, the work is not entirely under the control of a single person, the timelines are longer, and the inter-dependencies far greater.
+
+Intuitive estimations have many perverse ironies. For example, the higher the cost when a deadline is missed, the more likely people are to overestimate their chances of hitting it. As fallible as the individual's guesstimate may be, considering the same problem in a group can result in even greater underestimation due to various group biases.
+
+When estimation does work, the reason is not a keener sense of how long individual work items will take. Rather, it is a willingness to push for longer deadlines. The function of estimation is simply to come up plausible justifications.
+
+** Forecasting
+
+Put simply, forecasting predicts how long things will take in the future based on how long things took in the past. It uses the data from Jira (or the equivalent) to determine what the probabilities are for work being completed within a given time frame.
+
+Forecasting can be contrasted with estimation:
+
+- Where estimation focuses on what one hopes to do, forecasting looks at what one has actually done
+- Where estimation is based on intuition, forecasting is an empirical, fact-based method
+- Where estimation struggles to quantify risk, forecasting uses standard mathematical techniques to quantify risk
+- Where estimation consumes a lot of time, forecasting -- once set up -- can be done in seconds
+- Where estimation needs requirements to nearly fully determined up front, forecasting can be used without any requirements at all
+
+*** An intuition for forecasting
+
+Suppose that your team this track record of completing stories:
+
+| Month | Completed Stories |
+|-------+-------------------|
+| Jan   |                34 |
+| Feb   |                38 |
+| March |                32 |
+| April |                35 |
+| May   |                41 |
+| June  |                48 |
+| July  |                40 |
+
+However, to hit a deadline, you need to complete 95 stories in the next two months.
+
+It's easy to see the problem: you will need to average 45 stories in the next two months. However, the team has only exceeded 45 stories once. While it would be nice to quantify the chance of hitting the deadline, we can see, at least, that it's unlikely.
+
+*** Monte Carlo
+
+Monte Carlo simulations are a technique that allow us to use our history of completing stories to quantify the chances that our team will be able to complete a given number of stories. If you're interested in the details, see Magennis (2012) and Vacanti (2017). Here we simply want the intuition into why Monte Carlo is a good solution.
+
+Our Monte Carlo simulation will use a data set that lists, for all days (Jan - July), how many stories were completed. It will begin at day 1, and randomly select a day. Suppose that one story was completed on this day, it will add it to a running total. The simulation will continue to select days randomly and add the stories to the total until it has reached 100 stories.
+
+Running one simulation clearly doesn't tell us much. If we run a second simulation, we will probably get a very different answer. This is why Monte Carlo runs thousands of simulations, and then aggregate them together. Once aggregated together, we can use the results to get our confidence interval. If 90% of the simulations are completed by a certain date, we can have 90% confidence in that delivery date.
+
+*** Benefits of Monte Carlo
+
+The great benefit of the Monte Carlo simulation is that you only need to know how many stories you have. You do not need to assign story points to them. You don't even need to write them down or know what they are.
+
+It may sound counter-intuitive that we don't need to know how large the stories are. For the reasons behind this, see Vacanti (2015).
+
+Once a Monte Carlo simulation is set up, it's easy for product managers to T-Shirt size their project. Just select the number of stories and run the simulations. No need to pull developers off their work for a few days.
+
+Additionally, this gives control back to business and product. If a date needs to be hit with 90% confidence, the scope will need to be cut. If the scope cannot be cut, or if more scope needs to be added, dates can be pushed out. How far they will be pushed out can be predicted with attached confidence levels.
+
+Equally importantly, forecasts can be re-run as projects move forward. It's highly likely that the initial number of stories will not be accurate. And as stories are completed and the total number of outstanding stories is reduced, the confidence intervals become tighter. Dates come into focus with greater clarity. Forecasts can be re-run weekly to know "where we are".
+
+*** How Many Stories?
+
+There's just one problem: how do we know how many stories a project will have? Writing them out is time-intensive. And even when written out, stories inevitably multiply as projects move forward (unless work is not reflected in the project management system!)
+
+We have two obvious options:
+
+1. Guess a number. The product owner can guess a number. If the stories are already written, they can add a number of buffer stories. But doesn't this feel a little like the problem we started with? Aren't we back to unreliable human intuition?
+
+2. Select a range of numbers. The product owner can provide a range of numbers: what they can be 50%, 75%, and 99% confident in. This is likely to be a little better, since at least we have some way of measuring confidence intervals. But remember the students estimating when they would be done with their theses? They exceeded their most pessimistic estimates. We likely will too.
+
+Both these options suffer from the same problem we began with: our intuition is far too optimistic. Fortunately, there is way to check our intuition: reference class forecasting
+
+** Sources and Further Reading
+
+Buehler, R., & Griffin, D. (2018). The planning fallacy. In G. Oettingen, A. T. Sevincer, & P. Gollwitzer (Eds.), The psychology of thinking about the future (pp. 517–538). The Guilford Press.
+Magennis, T. (2012). Managing software development risk using modeling and monte carlo simulation. In Proceedings of the Lean Software and Systems Consortium 2012 Conference in Boston, Massachusetts, USA.
+Vacanti, D. S. (2015). Actionable Agile Metrics for Predictability.
+Vacanti, D. S. (2017). When Will It Be Done.
