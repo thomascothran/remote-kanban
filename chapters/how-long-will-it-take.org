@@ -110,9 +110,20 @@ We have two obvious options:
 
 Both these options suffer from the same problem we began with: our intuition is far too optimistic. Fortunately, there is way to check our intuition: reference class forecasting
 
+** Reference Class Forecasting
+
+The problem we wish to solve is: how can we estimate how many stories a project will have. The answer is, again, by looking at the past. We select previous projects that we think are similarly sized to the one we wish to forecast.
+
+This is incorporated into the Monte Carlo simulations. In addition to randomly sampling how many stories are completed per day, we also randomly sample how many stories might be in the project.
+
+What if there are no similarly sized projects in the past? Or if there are only one or two? In that case, it is possible to say that we expect project A to be roughly 2x what project B was.
+
 ** Sources and Further Reading
 
 Buehler, R., & Griffin, D. (2018). The planning fallacy. In G. Oettingen, A. T. Sevincer, & P. Gollwitzer (Eds.), The psychology of thinking about the future (pp. 517–538). The Guilford Press.
+
 Magennis, T. (2012). Managing software development risk using modeling and monte carlo simulation. In Proceedings of the Lean Software and Systems Consortium 2012 Conference in Boston, Massachusetts, USA.
+
 Vacanti, D. S. (2015). Actionable Agile Metrics for Predictability.
+
 Vacanti, D. S. (2017). When Will It Be Done.
