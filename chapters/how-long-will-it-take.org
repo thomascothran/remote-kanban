@@ -11,7 +11,7 @@ There are two main problems:
 
 The cone of uncertainty is best visualized in a image:
 
-image of cone of uncertainty
+[[../resources/how-long-will-it-take/cone-of-uncertainty.jpg]]
 
 There are many sources of uncertainty:
 
@@ -112,7 +112,9 @@ Both these options suffer from the same problem we began with: our intuition is 
 
 ** Reference Class Forecasting
 
-The problem we wish to solve is: how can we estimate how many stories a project will have. The answer is, again, by looking at the past. We select previous projects that we think are similarly sized to the one we wish to forecast.
+The problem we wish to solve is: how can we estimate how many stories a project will have. The answer is, again, by looking at the past. We will use a technique called "reference class forecasting".
+
+First, we select previous projects that we think are similarly sized to the one we wish to forecast.
 
 This is incorporated into the Monte Carlo simulations. In addition to randomly sampling how many stories are completed per day, we also randomly sample how many stories might be in the project.
 
@@ -120,9 +122,17 @@ What if there are no similarly sized projects in the past? Or if there are only 
 
 ** Sources and Further Reading
 
+Batselier, J., & Vanhoucke, M. (2016). Practical application and empirical evaluation of reference class forecasting for project management. Project Management Journal, 47(5), 36-51.
+
 Buehler, R., & Griffin, D. (2018). The planning fallacy. In G. Oettingen, A. T. Sevincer, & P. Gollwitzer (Eds.), The psychology of thinking about the future (pp. 517–538). The Guilford Press.
 
+Flyvbjerg, B., Hon, C. K., & Fok, W. H. (2016, June). Reference class forecasting for Hong Kong’s major roadworks projects. In Proceedings of the Institution of Civil Engineers-Civil Engineering (Vol. 169, No. 6, pp. 17-24). Thomas Telford Ltd.
+
+Godinho, P. (2006). Monte Carlo estimation of project volatility for real options analysis. Journal of Applied Finance, 16(1).
+
 Magennis, T. (2012). Managing software development risk using modeling and monte carlo simulation. In Proceedings of the Lean Software and Systems Consortium 2012 Conference in Boston, Massachusetts, USA.
+
+Raychaudhuri, S. (2008, December). Introduction to monte carlo simulation. In 2008 Winter simulation conference (pp. 91-100). IEEE.
 
 Vacanti, D. S. (2015). Actionable Agile Metrics for Predictability.
 
